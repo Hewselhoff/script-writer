@@ -5,10 +5,10 @@ from langchain.prompts.chat import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 
 
-class Role():
+class CharacterRole():
   PROMPT_GENRE_TEMPLATE = "* You are roleplaying in {genre}.".format
   PROMPT_IDENTITY_TEMPLATE = "* From here on, you are to take on the persona of {identity} in all responses.".format
   PROMPT_ACTOR_TEMPLATE = "* Your character is played by the actor {actor}.".format
@@ -71,7 +71,9 @@ class Character:
      "{{input}}  \n"
      "{identity}:  ").format
 
-  def __init__(self, role, model_name="gpt-3.5-turbo-16k"):
+  def __init__(self, 
+               role:CharacterRole, 
+               model_name:str="gpt-3.5-turbo-16k"):
     self.role = role    
     self.llm = OpenAI(model_name=model_name,temperature=0.2)
     self.memory = ConversationBufferMemory(ai_prefix=self.identity,human_prefix="")
